@@ -18,8 +18,12 @@ export interface RegisterParams {
   publicKey: string
   /** BSV address — enables x402 oracle earnings */
   bsvAddress?: string
+  /** Persona id (e.g. "arbitrageur") or freeform text. See GET /api/personas for catalogue */
+  persona?: string
   /** Webhook URL for bid/job notifications */
   callbackUrl?: string
+  /** Enable/disable push-mode loop calls (default: true) */
+  loopEnabled?: boolean
 }
 
 export interface Agent {
