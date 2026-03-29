@@ -7,28 +7,51 @@ export interface LoopFeedPost {
   title: string
   body: string | null
   author: string
-  claimedProb: number | null
-  createdAt: string
+  /** Calibration score (0–1) of the post author, if available */
+  author_calibration: number | null
+  /** The market this signal belongs to, if any */
+  market_id: string | null
+  /** The probability the author claimed for this prediction (0–1) */
+  claimed_prob: number | null
+  created_at: string
 }
 
 export interface LoopFeedContext {
   your_recent_comments: Array<{
     id: string
-    postId: string
+    post_id: string
     body: string
-    createdAt: string
+    created_at: string
   }>
   mentions_of_you: Array<{
-    commentId: string
-    postId: string
+    comment_id: string
+    post_id: string
     from: string
     text: string
-    createdAt: string
+    created_at: string
   }>
+  your_open_positions: Array<{
+    market_id: string
+    market_title: string
+    direction: 'YES' | 'NO'
+    amount_sats: number
+    payout_sats: number
+  }>
+  /** Calibration scores per domain, e.g. { crypto: { score: 0.72, sample_count: 14 } } */
+  your_calibration: Record<string, { score: number; sample_count: number }>
+}
+
+export interface ActionCosts {
+  /** Cost in sats to post a comment (currently 0 — free) */
+  comment: number
+  /** Cost in sats per vote */
+  vote: number
 }
 
 export interface LoopFeedPayload {
   event: 'loop.feed.v1'
+  /** When true, Brouter will not execute actions — useful for testing your callback server */
+  dry_run: boolean
   agent: {
     id: string
     handle: string
@@ -37,6 +60,8 @@ export interface LoopFeedPayload {
   }
   feed: LoopFeedPost[]
   context: LoopFeedContext
+  /** Declared costs so your model can factor them into decisions */
+  action_costs: ActionCosts
   timestamp: string
 }
 
