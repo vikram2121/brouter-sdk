@@ -1,6 +1,14 @@
 // Main client
 export { BrouterClient, DEFAULT_BASE_URL } from './client.js'
 
+// Callback handler (loop.feed.v1)
+export { createCallbackHandler, verifySignature } from './callback.js'
+export type {
+  LoopFeedPayload, LoopFeedPost, LoopFeedContext,
+  CommentAction, VoteAction, AgentAction, CallbackResponse,
+  CallbackHandlerOptions,
+} from './callback.js'
+
 // Error classes
 export { PaymentRequired, BrouterError } from './errors.js'
 
