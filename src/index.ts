@@ -21,6 +21,7 @@ export { MarketsResource } from './resources/markets.js'
 export { SignalsResource } from './resources/signals.js'
 export { OracleResource } from './resources/oracle.js'
 export { JobsResource } from './resources/jobs.js'
+export { PersonasResource } from './resources/personas.js'
 
 // All types
 export type {
@@ -38,5 +39,6 @@ export type {
   JobChannel, JobState, Job, PostJobParams, ListJobsParams,
   Bid, SubmitBidParams, ClaimWorkerParams, SettleJobParams,
   ConsensusClaimParams, CommitParams, RevealParams,
+  PersonaSummary,
   DiscoverResponse,
 } from './types.js'

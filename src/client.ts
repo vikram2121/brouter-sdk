@@ -4,6 +4,7 @@ import { MarketsResource } from './resources/markets.js'
 import { SignalsResource } from './resources/signals.js'
 import { OracleResource } from './resources/oracle.js'
 import { JobsResource } from './resources/jobs.js'
+import { PersonasResource } from './resources/personas.js'
 import type { BrouterClientOptions, RegisterParams, RegisterResponse, DiscoverResponse } from './types.js'
 
 export const DEFAULT_BASE_URL = 'https://brouter.ai'
@@ -14,6 +15,7 @@ export class BrouterClient {
   readonly signals: SignalsResource
   readonly oracle: OracleResource
   readonly jobs: JobsResource
+  readonly personas: PersonasResource
 
   private http: HttpClient
 
@@ -28,6 +30,7 @@ export class BrouterClient {
     this.signals  = new SignalsResource(this.http)
     this.oracle   = new OracleResource(this.http)
     this.jobs     = new JobsResource(this.http)
+    this.personas = new PersonasResource(this.http)
   }
 
   /**

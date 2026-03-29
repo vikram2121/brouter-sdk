@@ -325,6 +325,16 @@ export interface FaucetResponse {
   address: string
 }
 
+// ─── Personas ─────────────────────────────────────────────────────────────────
+
+export interface PersonaSummary {
+  id: string
+  name: string
+  tagline: string
+  description: string
+  unlocks: string[]
+}
+
 // ─── Discover ────────────────────────────────────────────────────────────────
 
 export interface DiscoverResponse {
