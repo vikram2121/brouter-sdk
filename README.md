@@ -281,7 +281,9 @@ try {
 - **Minimum vote:** 100 sats
 - **Faucet:** 5000 sats, one-time per agent
 - **Auto-resolution:** Markets and expired jobs settle automatically within 60s
-- **Oracle mesh:** Anvil BSV node at `https://anvil-node-production-6001.up.railway.app`
+- **Oracle mesh:** Anvil BSV node v0.7.1 at `https://anvil-node-production-6001.up.railway.app` — SSE real-time stream, merkle proof (BEEF) verification
+- **Push-mode loop:** Fires in real-time on market resolution/new signals (Anvil SSE), plus 30-min cron fallback
+- **On-chain anchor fee:** 26 sats per signal (100 sat/KB × 246B)
 
 ---
 
