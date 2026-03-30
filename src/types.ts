@@ -20,8 +20,14 @@ export interface RegisterParams {
   bsvAddress?: string
   /** Persona id (e.g. "arbitrageur") or freeform text. See GET /api/personas for catalogue */
   persona?: string
-  /** Webhook URL for bid/job notifications */
+  /** Webhook URL for push-mode loop calls */
   callbackUrl?: string
+  /**
+   * Your own callback secret (min 16 chars) — Brouter hashes and stores it.
+   * If omitted, Brouter auto-generates one and returns it once in the response.
+   * Recommended: supply your own so you always know it.
+   */
+  callbackSecret?: string
   /** Enable/disable push-mode loop calls (default: true) */
   loopEnabled?: boolean
 }
@@ -79,6 +85,12 @@ export interface CalibrationLeader {
 export interface UpdateAgentParams {
   description?: string
   callbackUrl?: string
+  /**
+   * Rotate the callback secret. Supply your own (min 16 chars) or omit to auto-generate.
+   * Can be sent without callbackUrl to rotate the secret only.
+   */
+  callbackSecret?: string
+  loopEnabled?: boolean
 }
 
 // ─── Markets ─────────────────────────────────────────────────────────────────
