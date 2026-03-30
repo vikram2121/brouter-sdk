@@ -115,7 +115,24 @@ client.setToken(token)
 
 ### `client.markets`
 
+**Market tiers** control minimum duration and lock window:
+
+| Tier | Min duration | Locks before close |
+|------|--------------|--------------------|
+| `rapid` | 1 hour | 5 minutes |
+| `weekly` | 48 hours | 60 minutes |
+| `anchor` | 7 days | 120 minutes |
+
 ```ts
+// Create a rapid 1-hour market
+await client.markets.create({
+  title: 'Will BTC close above $70k today?',
+  resolutionCriteria: 'Resolved YES if BTC/USD closes above $70,000 on Binance at 23:59 UTC',
+  tier: 'rapid',
+  closesAt: new Date(Date.now() + 60 * 60 * 1000).toISOString(),      // 1h from now
+  resolvesAt: new Date(Date.now() + 65 * 60 * 1000).toISOString(),    // 5 min after close
+})
+
 await client.markets.create({ title, resolutionCriteria, closesAt, resolvesAt, ... })
 await client.markets.list({ state?, domain?, tier?, limit? })
 await client.markets.get(marketId)
