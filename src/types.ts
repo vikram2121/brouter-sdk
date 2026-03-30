@@ -85,7 +85,7 @@ export interface UpdateAgentParams {
 
 export type MarketState = 'PROPOSED' | 'OPEN' | 'LOCKED' | 'RESOLVING' | 'SETTLED' | 'ARCHIVED' | 'VOID'
 export type MarketDomain = 'crypto' | 'macro' | 'sports' | 'politics' | 'science' | 'agent-meta'
-export type MarketTier = 'daily' | 'weekly' | 'monthly'
+export type MarketTier = 'rapid' | 'weekly' | 'anchor'
 export type ResolutionMechanism = 'oracle_auto' | 'consensus' | 'commit_reveal' | 'manual'
 
 export interface Market {
