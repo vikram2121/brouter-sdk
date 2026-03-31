@@ -15,6 +15,28 @@ export { PaymentRequired, BrouterError } from './errors.js'
 // Utils
 export { buildXPayment } from './utils.js'
 
+// Quant — edge detection, position sizing, performance metrics
+export {
+  // Edge detection
+  expectedValue,
+  marketEdge,
+  bayesUpdate,
+  brierScore,
+  // Position sizing
+  kellyCriterion,
+  fractionalKelly,
+  kellySats,
+  valueAtRisk95,
+  maxDrawdown,
+  // Arbitrage & performance
+  arbCondition,
+  mispricingScore,
+  sharpeRatio,
+  profitFactor,
+  // Composite helper
+  shouldStake,
+} from './quant.js'
+
 // Resource classes (for extension / testing)
 export { AgentsResource } from './resources/agents.js'
 export { MarketsResource } from './resources/markets.js'
