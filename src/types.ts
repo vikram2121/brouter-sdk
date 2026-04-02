@@ -358,3 +358,124 @@ export interface DiscoverResponse {
     domains: string[]
   }
 }
+
+// ─── Compute Exchange ─────────────────────────────────────────────────────────
+
+export type ComputeListingType = 'gpu_slot' | 'inference_slot' | 'cpu_slot' | 'storage_slot'
+export type ComputeListingStatus = 'active' | 'paused' | 'deleted'
+export type ComputeAvailabilityMode = 'instant' | 'scheduled'
+export type ComputeBookingStatus =
+  | 'reserved'
+  | 'active'
+  | 'proof_submitted'
+  | 'settled'
+  | 'disputed'
+  | 'expired'
+  | 'cancelled'
+
+export interface ComputeListing {
+  id: string
+  agentId: string
+  listingType: ComputeListingType
+  availabilityMode: ComputeAvailabilityMode
+  status: ComputeListingStatus
+  title?: string | null
+  description?: string | null
+  /** Hardware/model specs JSON */
+  specs?: Record<string, unknown> | null
+  slotDurationMinutes: number
+  priceSats: number
+  maxConcurrentSlots: number
+  callbackUrl?: string | null
+  /** BSV P2PKH locking script for x402 per-call metering */
+  x402Endpoint?: string | null
+  /** Sats per x402 call (if metering enabled) */
+  x402PriceSats?: number | null
+  activeBookingCount?: number
+  createdAt: string
+  updatedAt: string
+}
+
+export interface CreateListingParams {
+  listingType: ComputeListingType
+  availabilityMode?: ComputeAvailabilityMode
+  title?: string
+  description?: string
+  specs?: Record<string, unknown>
+  slotDurationMinutes: number
+  priceSats: number
+  maxConcurrentSlots?: number
+  callbackUrl?: string
+  x402Endpoint?: string
+  x402PriceSats?: number
+}
+
+export interface ListListingsParams {
+  listingType?: ComputeListingType
+  status?: ComputeListingStatus
+  agentId?: string
+  limit?: number
+  offset?: number
+}
+
+export interface ComputeBooking {
+  id: string
+  listingId: string
+  renterAgentId: string
+  status: ComputeBookingStatus
+  startsAt?: string | null
+  activatedAt?: string | null
+  expiresAt?: string | null
+  escrowSats: number
+  priceSats: number
+  proofTxid?: string | null
+  /** OP_RETURN anchor txid written at booking time — on-chain proof escrow existed */
+  nlocktimeTxid?: string | null
+  disputeReason?: string | null
+  disputeAutoRefundAt?: string | null
+  x402CallsCount: number
+  x402TotalSats: number
+  settlementTxid?: string | null
+  createdAt: string
+  updatedAt: string
+}
+
+export interface BookSlotParams {
+  /** ISO 8601 — for scheduled slots only */
+  startsAt?: string
+}
+
+export interface ListBookingsParams {
+  role?: 'renter' | 'provider'
+  status?: ComputeBookingStatus
+  limit?: number
+  offset?: number
+}
+
+export interface ComputeReceipt {
+  bookingId: string
+  listingId: string
+  renter: string
+  provider: string
+  slotPriceSats: number
+  escrowHeldSats: number
+  platformFeeSats: number
+  providerPayoutSats: number
+  proofTxid?: string | null
+  proofVerified: boolean
+  disputeReason?: string | null
+  x402CallsCount: number
+  x402TotalSats: number
+  activatedAt?: string | null
+  expiresAt?: string | null
+  status: ComputeBookingStatus
+}
+
+export interface UsageResponse {
+  accepted: boolean
+  txid?: string
+  callNumber?: number
+  paidSats?: number
+  bookingId: string
+  message?: string
+}

@@ -70,4 +70,13 @@ export class HttpClient {
   put<T>(path: string, body?: unknown): Promise<T> {
     return this.request<T>('PUT', path, body)
   }
+
+  patch<T>(path: string, body?: unknown, opts?: { headers?: Record<string, string> }): Promise<T> {
+    return this.request<T>('PATCH', path, body, opts?.headers)
+  }
+
+  /** POST with optional extra headers (used for x402 X-Payment passthrough). */
+  postWithHeaders<T>(path: string, body?: unknown, opts?: { headers?: Record<string, string> }): Promise<T> {
+    return this.request<T>('POST', path, body, opts?.headers)
+  }
 }

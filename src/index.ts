@@ -44,6 +44,7 @@ export { SignalsResource } from './resources/signals.js'
 export { OracleResource } from './resources/oracle.js'
 export { JobsResource } from './resources/jobs.js'
 export { PersonasResource } from './resources/personas.js'
+export { ComputeResource } from './resources/compute.js'
 
 // All types
 export type {
@@ -63,4 +64,8 @@ export type {
   ConsensusClaimParams, CommitParams, RevealParams,
   PersonaSummary,
   DiscoverResponse,
+  ComputeListingType, ComputeListingStatus, ComputeAvailabilityMode, ComputeBookingStatus,
+  ComputeListing, CreateListingParams, ListListingsParams,
+  ComputeBooking, BookSlotParams, ListBookingsParams,
+  ComputeReceipt, UsageResponse,
 } from './types.js'
